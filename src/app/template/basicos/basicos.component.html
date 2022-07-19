@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col">
 
-        <form (ngSubmit)="guardar( miForm )" 
+        <form (ngSubmit)="guardar()" 
                #miForm="ngForm"
                autocomplete="off">
             <!-- campo de producto -->
@@ -13,13 +13,17 @@
                 <div class="col-sm-9">
                     <input type="text"
                            class="form-control"
-                           ngModel
+                           [ngModel]="initForm.producto"
                            name="producto"
                            placeholder="Nombre del producto"
                            required
                            minlength="3">
 
-                    <span class="form-text text-danger">Debe tener al menos 3 letras</span>
+                    <span class="form-text text-danger"
+                          *ngIf="nombreValido()">
+                          Debe tener al menos 3 letras
+                    </span>
+                    <!-- && miForm.controls.producto?.touched -->
                 </div>
             </div>
             <!-- campo de precio -->
@@ -28,11 +32,15 @@
                 <div class="col-sm-9">
                     <input type="number"
                            class="form-control"
-                           ngModel
+                           [ngModel]="initForm.precio"
                            name="precio"
                            required
                            min="0"
-                           placeholder="Precio del producto">                    
+                           placeholder="Precio del producto">        
+                    <span class="form-text text-danger"
+                          *ngIf="precioValido()">
+                           El precio debe ser igual o mayor a 0
+                    </span>            
                 </div>
             </div>
             <!-- campo de existencias -->
@@ -41,15 +49,19 @@
                 <div class="col-sm-9">
                     <input type="number"
                            class="form-control"
-                           ngModel
+                           [ngModel]="initForm.existencias"
                            name="existencias"
-                           placeholder="Existencias del producto">                    
+                           customMin
+                           [minimo]="0"
+                           placeholder="Existencias del producto"
+                           required>                    
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
                     <button type="submit"
+                            [disabled]="miForm.invalid"
                             class="btn btn-primary float-end">
                         Submit
                     </button>
@@ -76,6 +88,9 @@
         
         <span>Value</span>
         <pre>{{ miForm.value | json }}</pre>
+        
+        <span>Custom Directive</span>
+        <pre>{{ miForm.controls['existencias']?.errors | json }}</pre>
 
     </div>
 </div>
