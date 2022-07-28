@@ -1,18 +1,20 @@
 <h2>Reactivos: <small>Dinamicos</small></h2>
 <hr>
 
-<form autocomplete="off">
-
+<form (ngSubmit)="guardar()" [formGroup]="miForm" autocomplete="off">
 
     <!-- Nombre -->
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Nombre</label>
         <div class="col-sm-9">
 
-            <input class="form-control"                                        
-                    placeholder="Nombre...">
+            <input class="form-control"
+                   type="text"                                        
+                   placeholder="Nombre..."
+                   formControlName="nombre">
 
-                <span class="form-text text-danger">
+                <span class="form-text text-danger"
+                      *ngIf="esCampoValido('nombre')">
                     Este campo es obligatorio
                 </span>
         </div>
@@ -25,13 +27,14 @@
         <div class="col-sm-9">
 
             <div class="input-group">
-                <input class="form-control"                    
-                        placeholder="Agregar favorito..."
-                        (keyup.enter)="1+1">
+                <input class="form-control"              
+                       [formControl]="nuevoFavorito"
+                       (keyup.enter)="agregarJuego()"
+                       placeholder="Agregar favorito...">
 
                 <button class="btn btn-outline-primary"
-                        type="button"
-                        (click)="1+1">
+                        (click)="agregarJuego()"
+                        type="button">
                     Agregar
                 </button>                        
             </div>
@@ -43,14 +46,17 @@
     <!-- Lista de juegos favoritos -->
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Favoritos</label>
-        <div class="col-sm-9">
+        <div class="col-sm-9" formArrayName="favoritos">
 
-            <div class="input-group mb-2">
-                <input class="form-control">
+            <div class="input-group mb-2" 
+                *ngFor="let el of favoritosArr.controls; let i = index">
+
+                <input class="form-control"
+                        [formControlName]="i">
 
                 <button class="btn btn-outline-danger"
-                        type="button"
-                        (click)="1+1">
+                        (click)="borrar(i)"
+                        type="button">
                     Eliminar
                 </button>    
             </div>
@@ -63,8 +69,7 @@
     <div class="row">        
         <div class="col-sm-12">
             <button class="btn btn-primary float-end"
-                    type="button"
-                    (click)="1+1">
+                    type="submit">
                 Guardar
             </button>
         </div>
@@ -74,5 +79,15 @@
 </form>
 
 
-<!-- <span>Persona</span>
-<pre>{{persona | json}}</pre> -->
+<span>Valid</span>
+<pre>{{ miForm.valid | json}}</pre>  
+<br>
+
+<span>Value</span>
+<pre>{{ miForm.value | json}}</pre>  
+
+<span>Agregar Juego</span>
+<pre>{{ nuevoFavorito.valid | json}}</pre>  
+<pre>{{ nuevoFavorito.value | json}}</pre>  
+<br>
+

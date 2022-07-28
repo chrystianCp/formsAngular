@@ -1,7 +1,7 @@
 <h2>Reactivos: <small>switches</small></h2>
 <hr>
 
-<form>
+<form [formGroup]="miForm" (ngSubmit)="guardar()">
 
     <!-- Radios -->
     <div class="row mb-3">
@@ -11,8 +11,8 @@
             <div class="form-check">
                 <input class="form-check-input"
                        type="radio" 
-                       value="F"                       
-                       name="radioGenero" 
+                       value="F"                                              
+                       formControlName="genero"
                        id="radioFemenino">
                 <label class="form-check-label" for="radioFemenino">
                   Femenino
@@ -21,8 +21,8 @@
             <div class="form-check">
                 <input class="form-check-input"
                        type="radio"
-                       value="M"                     
-                       name="radioGenero" 
+                       value="M"                                            
+                       formControlName="genero"
                        id="radioMasculino">
                 <label class="form-check-label" for="radioMasculino">
                   Masculino
@@ -42,6 +42,7 @@
                 <input class="form-check-input" 
                        type="checkbox"                                              
                        role="switch" 
+                       formControlName="notificaciones"
                        id="flexSwitchCheckChecked">
                 <label class="form-check-label" for="flexSwitchCheckChecked">Quiero recibir notificaciones</label>
             </div>
@@ -56,7 +57,8 @@
 
             <div class="form-check mt-2">
                 <input class="form-check-input" 
-                       type="checkbox"                       
+                       type="checkbox"     
+                       formControlName="condiciones"                  
                        id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
                     Terminos y condiciones 
@@ -70,26 +72,27 @@
 
     <div class="row">
         <div class="col">
-            <button class="btn btn-primary float-end">Guardar</button>
+            <button class="btn btn-primary float-end"
+                    type="submit">Guardar</button>
         </div>
     </div>
 
 </form>
 
-<!-- <h5>Valor del formulario</h5>
-<pre>{{ miFormSwitches.value | json }}</pre>
+<h5>Valor del formulario</h5>
+<pre>{{ miForm.value | json }}</pre>
 <br>
 
 <h5>Valid</h5>
-<pre>{{ miFormSwitches.valid | json }}</pre>
+<pre>{{ miForm.valid | json }}</pre>
 <br>
 
 <h5>Persona</h5>
 <pre>{{ persona | json }}</pre>
 <br>
 
-<h5>Terminos y condiciones</h5>
-<pre>{{miFormSwitches.controls['terminos']?.errors | json}}</pre> -->
+<!-- <h5>Terminos y condiciones</h5> -->
+<!-- <pre>{{miForm.controls['terminos']?.errors | json}}</pre> -->
 
 
 
