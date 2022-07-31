@@ -9,11 +9,24 @@
         {{ el.texto }}
     </li>    
 </ul>
+
 <h2 class="mt-4">Reactive</h2>
 <hr>
 
 <ul class="list-group">
     <li *ngFor="let el of reactiveMenu"
+        class="list-group-item"
+        routerLinkActive="active"
+        [routerLink]="[ el.ruta ]">
+        {{ el.texto }}
+    </li>    
+</ul>
+
+<h2 class="mt-4">Validaciones</h2>
+<hr>
+
+<ul class="list-group">
+    <li *ngFor="let el of authMenu"
         class="list-group-item"
         routerLinkActive="active"
         [routerLink]="[ el.ruta ]">
